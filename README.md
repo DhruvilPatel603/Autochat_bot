@@ -27,8 +27,7 @@ SpeakEasy is a Flask-based web application that uses OpenAI's GPT-3.5-turbo mode
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/speakeasy.git
-    cd speakeasy
+    git clone https://github.com/DhruvilPatel603/Autochat_bot.git
     ```
 
 2. Create a virtual environment and activate it:
@@ -58,13 +57,19 @@ SpeakEasy is a Flask-based web application that uses OpenAI's GPT-3.5-turbo mode
     python app.py
     ```
 
-2. Open your web browser and go to `http://localhost:5000`.
+2. Open your web browser and go to the IP address printed on your terminal.
 
 ### Project Structure
 
-- `app.py`: Main application file containing the Flask routes and logic.
-- `templates/index.html`: HTML file for the web interface.
-- `requirements.txt`: List of Python packages required for the project.
+```bash
+.
+├── templates
+│   └── index.html        # HTML file for the chat interface
+├── app.py                # Main application file
+├── requirements.txt      # List of Python dependencies
+├── .env                  # Environment variables
+└── README.md             # Project documentation
+```
 
 ### API Endpoints
 
@@ -76,9 +81,10 @@ SpeakEasy is a Flask-based web application that uses OpenAI's GPT-3.5-turbo mode
 
 ### Usage
 
-- Type your message in the chat box and press Enter or click the send button.
+- Type your message in the chat box, press Enter, or click the send button.
+- You Can Also Use the Mic Function To Type Using Your Microphone
 - The chatbot will respond based on the context of the conversation.
-- If you mention words like "song", "music", "track", "play", "listen", or "sing", the bot will attempt to play the mentioned song on YouTube.
+- If you ask the bot to play any song, the bot will try to play the song you requested.
 - Use the "Clear Chat" button to clear the chat history.
 
 ### Saving and Clearing Chat History
@@ -86,11 +92,10 @@ SpeakEasy is a Flask-based web application that uses OpenAI's GPT-3.5-turbo mode
 - The chat history can be saved by sending a POST request to the `/save` endpoint.
 - The chat history can be cleared by sending a POST request to the `/clear` endpoint.
 
-### License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ### Acknowledgments
 
-- OpenAI for the GPT-3.5-turbo model.
-- The contributors of Flask, Flask-CORS, and other libraries used in this project.
+- [OpenAI](https://openai.com/) for the GPT-3.5-turbo model.
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/) for the web framework.
+- [LangChain](https://github.com/langchain-ai/langchain) for conversation management.
+- [PyWhatKit](https://github.com/Ankit404butfound/PyWhatKit) for YouTube integration.
+
