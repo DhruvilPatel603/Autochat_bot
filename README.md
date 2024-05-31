@@ -27,7 +27,7 @@ SpeakEasy is a Flask-based web application that uses OpenAI's GPT-3.5-turbo mode
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/DhruvilPatel603/Autochat_bot.git
+    git clone https://github.com/DhruvilPatel603/SpeakEasy.git
     ```
 
 2. Create a virtual environment and activate it:
