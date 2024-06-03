@@ -278,3 +278,7 @@ textarea#userinput:focus {
 .rotate-90:hover {
     transform: rotate(-5deg);
 }
+.nav-left img:hover {
+    transform: translateX(5px);
+    transition: transform 0.3s ease;
+}
