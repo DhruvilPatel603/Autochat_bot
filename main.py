@@ -43,32 +43,59 @@ def get_data():
         memory.save_context({"input": user_input}, {"output": output})
 
         # Detect text within double quotes in the bot's output if it contains specific keywords
-        keywords = ["song", "music", "track", "play", "listen", "sing"]
-        if any(keyword in output.lower() for keyword in keywords):
+        keywords = ["song", "music", "track", "listen", "sing"]
+        ignore_list = ["<img src=", "image.jpg", "Description of image"]
+        user_input_keywords = ["play", "song"]
+        user_input_lower = user_input.lower()
+        output_lower = output.lower()
+        if any(keyword in user_input_lower for keyword in user_input_keywords):
+            print(f"Keywords detected in input: {user_input_keywords}")
+            pywhatkit.playonyt(user_input)
+            for item in user_input_keywords:
+                user_input = user_input.replace(item, "", 1)
+                user_input = user_input.strip()
+            response_json = {
+                "response": True,
+                "message": f"Playing \"{user_input}\" on YouTube."
+            }
+        
+        elif any(keyword in output_lower for keyword in keywords):
+            print(f"Keywords detected in output: {keywords}")
             first_quote = output.find('"')
             if first_quote != -1:
                 second_quote = output.find('"', first_quote + 1)
                 if second_quote != -1:
                     query = output[first_quote + 1:second_quote]
-                    pywhatkit.playonyt(query)
+                    print(f"Query found: {query}")
+                    if not any(ignore_word.lower() in output_lower for ignore_word in ignore_list):
+                        pywhatkit.playonyt(query)
+                        response_json = {
+                            "response": True,
+                            "message": f"Playing \"{query}\" on YouTube."
+                        }
+                    else:
+                        response_json = {
+                            "response": True,
+                            "message": output  # Use the original output as the message when ignored words are detected
+                        }
+                else:
                     response_json = {
                         "response": True,
-                        "message": f"Playing \"{query}\" on YouTube."
+                        "message": output  # Use the original output as the message when ignored words are detected
                     }
-
-                    # Append bot response to chat history
-                    chat_history.append({"type": "bot", "message": response_json["message"]})
-                    # Save updated chat history to session
-                    session['chat_history'] = chat_history
-
-                    return jsonify(response_json)
+            else:
+                response_json = {
+                    "response": True,
+                    "message": output  # Use the original output as the message when no quotes are found
+                }
+        else:
+            response_json = {"response": True, "message": output}
 
         # Append bot response to chat history
         chat_history.append({"type": "bot", "message": output})
         # Save updated chat history to session
         session['chat_history'] = chat_history
 
-        response_json = {"response": True, "message": output}
         return jsonify(response_json)
     except Exception as e:
         print(e)
