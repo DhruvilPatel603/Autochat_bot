@@ -45,7 +45,7 @@ def get_data():
         # Detect text within double quotes in the bot's output if it contains specific keywords
         keywords = ["song", "music", "track", "listen", "sing"]
         ignore_list = ["<img src=", "image.jpg", "Description of image"]
-        user_input_keywords = ["play", "song"]
+        user_input_keywords = ["play"]
         user_input_lower = user_input.lower()
         output_lower = output.lower()
         if any(keyword in user_input_lower for keyword in user_input_keywords):
