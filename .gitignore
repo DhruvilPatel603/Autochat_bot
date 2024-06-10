@@ -2,7 +2,3 @@ Venv
 .env
 logs.txt
 Testing.html
-models
-module
-package-lock.json
-package.json
