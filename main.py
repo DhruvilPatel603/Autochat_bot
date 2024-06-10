@@ -43,8 +43,24 @@ def get_data():
         memory.save_context({"input": user_input}, {"output": output})
 
         # Detect text within double quotes in the bot's output if it contains specific keywords
-        keywords = ["song", "music", "track", "play", "listen", "sing"]
-        if any(keyword in output.lower() for keyword in keywords):
+        keywords = ["song", "music", "track", "listen", "sing"]
+        ignore_list = ["<img src=", "image.jpg", "Description of image"]
+        user_input_keywords = ["play", "song"]
+        user_input_lower = user_input.lower()
+        output_lower = output.lower()
+        if any(keyword in user_input_lower for keyword in user_input_keywords):
+            print(f"Keywords detected in input: {user_input_keywords}")
+            pywhatkit.playonyt(user_input)
+            for item in user_input_keywords:
+                user_input = user_input.replace(item, "", 1)
+                user_input = user_input.strip()
+            response_json = {
+                "response": True,
+                "message": f"Playing \"{user_input}\" on YouTube."
+            }
+        
+        elif any(keyword in output_lower for keyword in keywords):
+            print(f"Keywords detected in output: {keywords}")
             first_quote = output.find('"')
             if first_quote != -1:
                 second_quote = output.find('"', first_quote + 1)
